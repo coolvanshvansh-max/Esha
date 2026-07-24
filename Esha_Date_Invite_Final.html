@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Aaja meri gaadi me beth jaa? ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Tahoma,sans-serif}
+body{
+height:100vh;overflow:hidden;display:flex;justify-content:center;align-items:center;
+background:linear-gradient(135deg,#FFE29F,#FFA99F,#FF719A);
+position:relative;
+}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.45;animation:float 10s ease-in-out infinite alternate}
+@keyframes float{to{transform:translate(80px,-60px) scale(1.2)}}
+.card{
+position:relative;
+width:92%;
+max-width:420px;
+padding:28px 22px 90px;
+border-radius:28px;
+background:rgba(255,255,255,.18);
+backdrop-filter:blur(18px);
+color:#fff;
+text-align:center;
+box-shadow:0 20px 40px rgba(0,0,0,.2);
+z-index:2;
+overflow:hidden;
+}
+h1{font-size:34px;margin-bottom:15px}
+p{font-size:18px;line-height:1.7}
+.buttons{margin-top:28px}
+button{
+border:none;padding:16px 28px;border-radius:40px;
+font-size:18px;font-weight:bold;cursor:pointer;
+transition:.2s;min-width:150px;
+}
+#yes{background:#ff2d55;color:#fff;}
+#yes:active{transform:scale(.96)}
+#no{
+position:fixed;
+background:#fff;
+color:#ff2d55;
+box-shadow:0 8px 20px rgba(0,0,0,.2);
+z-index:999;
+}
+#message{display:none;font-size:22px;line-height:1.6;margin-top:24px;animation:pop .5s}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.float{position:absolute;pointer-events:none;user-select:none}
+</style>
+</head>
+<body>
+
+<div class="blob" style="width:300px;height:300px;background:#ff5c7c;top:-120px;left:-80px"></div>
+<div class="blob" style="width:240px;height:240px;background:#ffd166;bottom:-90px;right:-60px"></div>
+<div class="blob" style="width:160px;height:160px;background:#ffffff66;top:18%;right:8%"></div>
+
+<div class="card" id="card">
+<h1>Hey Esha 😎</h1>
+
+<p>
+Mere paas ek mast plan hai.... (Every day is a fun day with me 😌)<br><br>
+
+🍽️ Lunch in Truro (mast thoosenge desi khaana 😋)<br>
+
+🎳 Playdium (Har hero ki ek heroine hoti hai... aur har hero ko ek worthy competitor bhi chahiye. Toh, challenge accepted? 😏)<br>
+
+🍹 Drinks (of course baby...sorry bevdii 😉), aur ek handsome ladkaa (that's me... Vansh 😎), and way too many terrible dad/ racist jokes.<br><br>
+
+So... what do you think? (Yes. koi chance nahi chhordta ye aadmi!)😜
+</p>
+
+<div class="buttons">
+<button id="yes">Siuuuuuu! ❤️</button>
+</div>
+
+<div id="message">
+🎉 Yessss!! See you at <b>1:00 PM?</b> 😎<br><br>
+I was 99% sure you'd say yes...<br>
+The other 1%? Mujhe apni engineering skills aur uss No button pe bharosa tha. 😂
+</div>
+</div>
+
+<button id="no">Maybe Not 🩴🩴🩴🩴</button>
+
+<script>
+const icons=["✨","💖","⭐","🌸","🍹","🎳","🍽️"];
+for(let i=0;i<60;i++){
+ let d=document.createElement("div");
+ d.className="float";
+ d.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+ d.style.left=Math.random()*100+"vw";
+ d.style.top=Math.random()*100+"vh";
+ d.style.fontSize=(12+Math.random()*18)+"px";
+ d.animate([{transform:"translateY(0)",opacity:.3},{transform:"translateY(-25px)",opacity:1},{transform:"translateY(0)",opacity:.3}],{duration:2000+Math.random()*3000,iterations:Infinity});
+ document.body.appendChild(d);
+}
+
+const no=document.getElementById("no");
+const card=document.getElementById("card");
+let attempts=0;
+
+function placeInitial(){
+ const r=card.getBoundingClientRect();
+ no.style.left=(r.left+r.width-no.offsetWidth-20)+"px";
+ no.style.top=(r.bottom-no.offsetHeight-18)+"px";
+}
+window.addEventListener("load",placeInitial);
+window.addEventListener("resize",placeInitial);
+
+function jump(){
+ const rect=card.getBoundingClientRect();
+ const margin=15;
+ const maxX=rect.width-no.offsetWidth-margin;
+ const maxY=rect.height-no.offsetHeight-margin;
+
+ const x=margin+Math.random()*(maxX-margin);
+ const y=margin+Math.random()*(maxY-margin);
+
+ no.style.left=(rect.left+x)+"px";
+ no.style.top=(rect.top+y)+"px";
+
+ const texts=[
+ "Maybe Not 🙈",
+ "Nice Try 😂",
+ "Too Slow 😜",
+ "Catch Me 😎",
+ "Nope 🤭",
+ "Almost! 😂",
+ "Try Again 😏"
+ ];
+ no.textContent=texts[Math.floor(Math.random()*texts.length)];
+}
+
+no.addEventListener("click",e=>{
+ e.preventDefault();
+ attempts++;
+ if(attempts===8){
+   alert("😂 You know... there's a much easier button.\n\n👉 'Absolutely! ❤️'");
+ }
+ jump();
+});
+
+document.getElementById("yes").onclick=()=>{
+ document.getElementById("message").style.display="block";
+ document.getElementById("yes").style.display="none";
+ no.style.display="none";
+
+ for(let i=0;i<140;i++){
+   const c=document.createElement("div");
+   c.className="float";
+   c.innerHTML=["🎉","✨","💖","🥳"][Math.floor(Math.random()*4)];
+   c.style.left=Math.random()*100+"vw";
+   c.style.top="-30px";
+   c.style.fontSize=(18+Math.random()*18)+"px";
+   c.animate([{transform:"translateY(0)"},{transform:`translateY(${window.innerHeight+50}px) rotate(${Math.random()*720}deg)`}],{duration:2500+Math.random()*1500});
+   document.body.appendChild(c);
+   setTimeout(()=>c.remove(),4000);
+ }
+};
+</script>
+</body>
+</html>
